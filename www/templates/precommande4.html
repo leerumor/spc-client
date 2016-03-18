@@ -1,0 +1,51 @@
+<ion-view view-title="Confirmation">
+  <ion-content>
+	<div class="card">
+    <div class="item item-divider">
+    Votre Date et Heure d'arrivée :
+    </div>
+  	<div class="item item-text-wrap">
+    {{precmd.date.label}} {{precmd.horaire.label}}
+    </div>
+	</div>
+  <div class="card">
+    <div ng-repeat="reservation in precmd.reservations">
+    <div class="item item-divider">
+    Votre commande {{reservation.id}} :
+    </div>
+  	<div class="item">
+    Type de menu : {{reservation.typePlat.label}}
+ 	  </div>
+    <div class="item" ng-hide="reservation.peri1 == '' " >
+    Périphérique 1 : {{reservation.peri1.label}}
+    </div>
+    <div class="item" ng-hide="reservation.peri2 == '' ">
+    Périphérique 2 : {{reservation.peri2.label}}
+    </div>
+    <div class="item" ng-hide="reservation.peri3 == '' ">
+    Périphérique 3 : {{reservation.peri3.label}}
+    </div>
+    <div class="item" ng-hide="reservation.peri4 == '' ">
+    Périphérique 4 : {{reservation.peri4.label}}
+    </div>
+    <div class="item" ng-hide="reservation.boisson.id == 1">
+    Boisson : {{reservation.boisson.label}}
+    </div>
+	 </div>
+   </div>
+	<div class="card">
+    <div class="item item-divider">
+    Prix :
+    </div>
+  	<div class="item item-text-wrap">
+    {{precmd.prix}} euros
+    </div>
+	</div>
+
+  <div class="padding">
+	  <button class="button button-block button-assertive" ng-click="confirmationP()">
+	  	Confirmer
+	  </button>
+  </div>
+  </ion-content>
+</ion-view>
