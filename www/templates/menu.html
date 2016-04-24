@@ -40,23 +40,20 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()" ng-hide="loginData.isLogged">
+        <ion-item menu-close ng-click="login()" ng-hide="isLoggedIn()">
           Login
         </ion-item>
-        <div ng-show="loginData.isLogged"> 
+        <ion-item menu-close ng-click="register()" ng-hide="isLoggedIn()">
+          Inscription
+        </ion-item>
+        <div ng-show="isLoggedIn()"> 
         <ion-item >
-          <b>{{loginData.username}}</b>
+          <b>{{ currentUser() }}</b>
         </ion-item>
-        <ion-item menu-close href="#/app">
-          Mon compte
-        </ion-item>
-        <ion-item menu-close href="#/app">
-          Ma carte
-        </ion-item>
-        <ion-item menu-close href="#/app">
+        <ion-item menu-close href="#/app/reservation">
           Ma réservation
         </ion-item>  
-        <ion-item menu-close ng-click="logout()">
+        <ion-item menu-close ng-click="logOut()">
           Déconnexion
         </ion-item>   
       </div>

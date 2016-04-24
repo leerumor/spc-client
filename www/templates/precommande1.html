@@ -1,34 +1,67 @@
 <ion-view view-title="RU et Date">
   <ion-content>
-
     <ion-list>
       <label class="item item-input item-select">
         <div class="input-label">
           Restaurant CROUS :
         </div>
-        <select>
-          <option selected>Sully</option>
+        <select class="form-control" ng-model="precmd.resto">
+          <option>Sully</option>
         </select>
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Date de commande :
         </div>
-        <select ng-options="day as day.label for day in date track by day.id" ng-model="precmd.date"></select>
+        <select class="form-control" ng-model="precmd.jour" ng-change="date()">
+          <option>Aujourd'hui</option>
+          <option>Demain</option>
+        </select>
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Heure d'arrivée :
         </div>
-        <select ng-options="hour as hour.label for hour in horaire track by hour.id" ng-model="precmd.horaire"></select>
+        <select ng-options="hour as hour.label for hour in plagehoraire track by hour.id" ng-model="precmd.horaire" ng-change="horaire()"></select>
       </label>
     </ion-list>
 
-  <div class="padding">
-  <button class="button button-block button-assertive" ng-click="confirmationP()">
-    Continuer
-  </button>
-  </div>
-  
+    <div class="card">
+      <div class="item item-divider">
+      Attente estimé sans précommande :
+      </div>
+      <div class="item item-text-wrap" ng-show="precmd.horaire&&precmd.jour">
+      <div id="estimationcard">
+      {{precmd.estimation}}
+      </div>
+      </div>
+      <div class="item item-divider">
+      Attente estimé avec précommande :
+      </div>
+      <div class="item item-text-wrap">
+      <div id="estimationcard2">
+      <span id="estimation">Moins </span>de<span id="estimation"> 5 </span>minutes 
+      </div>
+      </div>
+    </div>
+    <button class="button button-full button-clear " ng-click="addP()" ng-hide="errorMsg">
+    La commande pour aujourd'hui ferme à 10:30
+    </button>
+    <button class="button button-full button-clear button-assertive" ng-click="addP()" ng-show="errorMsg">
+    La commande pour aujourd'hui est fermée!
+    </button>
+    <div class="padding">
+    <button class="button button-block button-assertive" ng-click="confirmationP()" ng-show="precmd.horaire&&precmd.jour&&isLoggedIn()" >
+      Faire une précommande
+    </button>
+    </div>
+    <div class="card" ng-hide="isLoggedIn()">
+      <div class="item item-divider">
+        Attention
+      </div>
+      <div class="item item-text-wrap">
+        Vous devez vous connecter avant de faire une précommande!
+      </div>
+      </div>
   </ion-content>
 </ion-view>

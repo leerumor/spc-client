@@ -1,29 +1,15 @@
-<ion-view view-title="{{ detail.title }}">
+<ion-view view-title="{{plat.title}}">
   <ion-content>
- 
-<div class="container">
-<div class="list card">
+  <div class="list card">
+    <div class="item">
+    <h2>{{ plat.title }}</h2>
+    <p>{{ plat.type }}</p>
+    </div>
 
-  <div class="item item-avatar">
-    <img src="{{ detail.thumb }}">
-    <h2>{{ detail.title }}</h2>
-    <p>{{ detail.date }}</p>
+    <div class="item item-body">
+      <img class="full-image" src="{{ plat.image }}">
+      <p>{{plat.description}}</p>
+    </div>
   </div>
-
-  <div class="item item-body">
-    <img class="full-image" src="{{ detail.image }}">
-    <p>
-    {{ detail.description }}
-    </p>
-    <p>
-      <a href="#" class="subdued">1 Like</a>
-      <a href="#" class="subdued">5 Comments</a>
-    </p>
-  </div>
-
-</div>
-</div>
-
-
   </ion-content>
 </ion-view>

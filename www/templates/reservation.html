@@ -1,0 +1,24 @@
+<ion-view view-title= "SPC"  >
+  <ion-content>
+
+    <div class="list" >
+      <a class="item"  ng-show="reservations===[]">
+        Vous avez aucune réservation!
+      </a>
+      <div ng-repeat="reservation in reservations | orderBy : ['preparation','retrait','-date','nCommande']">
+      <div class="item item-divider">
+        {{reservation.date}}
+        <span ng-show ="reservation.preparation&& !reservation.retrait" class="badge badge-assertive">Préparé</span>
+        <span ng-show="reservation.retrait" class="badge badge-dark">Retrait</span>
+      </div>
+
+      <a class="item" href="#">
+        N° de Commande : {{reservation.nCommande }}
+      </a>
+      <a class="item" href="#">
+        N° de Caisier : {{reservation.nCasier }}
+      </a>
+    </div>
+    </div>
+  </ion-content>
+</ion-view>

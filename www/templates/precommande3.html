@@ -2,52 +2,46 @@
   <ion-content>
 
     <ion-list>
-      <div ng-repeat="reservation in precmd.reservations">
-      <div class="item item-divider" ng-click = "show(reservation)">
-      Personne {{reservation.id}}
+      <div class="item item-divider">
+      Précommande
       </div>
       <label class="item item-input item-select">
         <div class="input-label">
           Type de menu
         </div>
-        <select ng-options="type as type.label for type in typePlat track by type.id" ng-model="reservation.typePlat"></select>
+        <select ng-options="type as type.label for type in typePlat track by type.id" ng-model="precmd.typePlat"></select>
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Périphérique 1
         </div>
-        <select ng-options="peripherique.label group by peripherique.type for peripherique in peripheriques " ng-model="reservation.peri1"></select>
+        <select ng-options="peripherique.title group by peripherique.type for peripherique in listplats " ng-model="precmd.peri1"></select>
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Périphérique 2
         </div>
-        <select ng-options="peripherique.label group by peripherique.type for peripherique in peripheriques " ng-model="reservation.peri2"></select>
+        <select ng-options="peripherique.title group by peripherique.type for peripherique in listplats " ng-model="precmd.peri2"></select>
       </label>
-      <label class="item item-input item-select" ng-show="reservation.typePlat.id<3">
+      <label class="item item-input item-select" ng-show="precmd.typePlat.id<3">
         <div class="input-label">
           Périphérique 3
         </div>
-        <select ng-options="peripherique.label group by peripherique.type for peripherique in peripheriques " ng-model="reservation.peri3"></select>
+        <select ng-options="peripherique.title group by peripherique.type for peripherique in listplats " ng-model="precmd.peri3"></select>
       </label>
-      <label class="item item-input item-select" ng-show="reservation.typePlat.id===2">
+      <label class="item item-input item-select" ng-show="precmd.typePlat.id===2">
         <div class="input-label">
           Périphérique 4
         </div>
-        <select ng-options="peripherique.label group by peripherique.type for peripherique in peripheriques " ng-model="reservation.peri4"></select>
+        <select ng-options="peripherique.title group by peripherique.type for peripherique in listplats " ng-model="precmd.peri4"></select>
       </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Boisson
         </div>
-        <select ng-options="boisson as boisson.label for boisson in boissons track by boisson.id" ng-model="reservation.boisson"></select>
+        <select ng-options="peripherique.title group by peripherique.type for peripherique in listplats " ng-model="precmd.boisson"></select>
       </label>
-    </div>
     </ion-list>
-
-  <button class="button button-full button-light" ng-click="addP()">
-    Ajouter une personne
-  </button>
   <div class="padding">
   <button class="button button-block button-assertive" ng-click="confirmationP()">
     Continuer

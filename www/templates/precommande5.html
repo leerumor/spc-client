@@ -2,12 +2,16 @@
   <ion-content>
 	<div class="card">
 	<div class="item item-divider">
-    N° de commande : 1603051234501
+    N° de commande : {{ precmd.nCommande }}
     </div>	
   	 <div class="item item-body">
-    <img src="http://www.liantu.com/images/2013/liantu.png" id="code"></img>
-    Votre commande a bien été éffectuée, veuillez présenter le QR code en récupérant votre(vos) plat(s).
+    Votre commande a bien été éffectuée, veuillez consulter votre N° de Caisier après 10:30 du jour de précommande pour récupérer votre plat.
     </div>
 	</div>  
+  <div class="padding">
+    <button class="button button-block button-assertive" ng-click="finir()">
+      Finir
+    </button>
+  </div>
   </ion-content>
 </ion-view>

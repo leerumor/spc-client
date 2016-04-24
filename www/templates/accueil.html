@@ -1,13 +1,15 @@
 
-<ion-view view-title="SPC" >
+<ion-view view-title= "SPC"  >
   <ion-content>
-  <div class="list">
+    <div class="list">
 
-        <a ng-repeat="plat in plats" 
-           href="#/app/news/{{plat.id}}">
-		    <app-info class="item item-thumbnail-left"></app-info>         
-        </a>
-
-      </div>
+    <a ng-repeat="plat in plats" 
+       href="#/app/plats/{{plat._id}}"
+       class="item item-thumbnail-left">
+      <img ng-src="{{ plat.image }}">
+      <h2>{{ plat.title }}</h2>
+      <p>{{ plat.type }}</p>
+    </a>
+    </div>
   </ion-content>
 </ion-view>

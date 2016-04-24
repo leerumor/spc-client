@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ngRoute', 'ngMaterial', 'ngMessages', 'starter.controllers'])
+angular.module('starter', ['ionic','ngRoute','ngResource', 'ngMaterial','ui.router', 'ngMessages', 'starter.controllers','LocalStorageModule'])
+.constant('baseUrl','https://spc-server-leerumor-1.c9users.io/')
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,32 +23,82 @@ angular.module('starter', ['ionic','ngRoute', 'ngMaterial', 'ngMessages', 'start
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function(localStorageServiceProvider){
+  localStorageServiceProvider.setPrefix('starter');
+  localStorageServiceProvider.setStorageType('localStorage')
+  localStorageServiceProvider.setNotify(false, false);
+  // localStorageServiceProvider.setStorageCookieDomain('example.com');
+  // localStorageServiceProvider.setStorageType('sessionStorage');
+})
+
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,  $urlRouterProvider){
+
+
+
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'AuthCtrl'
   })
-  
+  .state('app.contact', {
+      url: '/contact',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/contact.html'
+        }
+      }
+    })
+  .state('app.accueil', {
+    url: '/accueil',
+    resolve: {
+        platPromise: ['plats', function(plats){
+            return plats.getAll();
+        }]
+    },
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/accueil.html',
+        controller: 'MainCtrl'      
+      }
+    }
+  })
+  .state('app.reservation', {
+    url: '/reservation',
+    resolve: {
+        precmdPromise: ['precmd', function(precmd){
+            return precmd.getMy();
+        }]
+    },
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/reservation.html',
+        controller: 'ReservationCtrl'      
+      }
+    }
+  })
+  .state('app.new', {
+    url: '/plats/{id}',
+    resolve: {
+        plat: ['$stateParams', 'plats', function($stateParams, plats) {
+            return plats.get($stateParams.id);
+        }]
+    },
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new.html',
+        controller: 'PlatCtrl'
+      }
+    }
+  })
    .state('app.precommande1', {
     url: '/precommande1',
     views: {
       'menuContent': {
         templateUrl: 'templates/precommande1.html',
         controller: 'PrecmdCtrl1'
-      }
-    }
-  })
-  
-  .state('app.precommande2', {
-    url: '/precommande2',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/precommande2.html',
-        controller: 'PrecmdCtrl2'
       }
     }
   })
@@ -82,37 +133,6 @@ angular.module('starter', ['ionic','ngRoute', 'ngMaterial', 'ngMessages', 'start
     }
   })
 
-  .state('app.contact', {
-      url: '/contact',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/contact.html'
-        }
-      }
-    })
-  .state('app.accueil', {
-    url: '/accueil',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/accueil.html',
-        controller: 'HomeCtrl'
-      }
-    }
-  })
-  .state('app.new', {
-    url: '/news/:newId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/new.html',
-        //controller: 'NewCtrl'
-    	  controller: function($scope, $stateParams) 
-    	  {
-    		  $scope.detail = data[$stateParams.newId - 1]
-    	  }
-		
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/accueil');
-});
+}]);
